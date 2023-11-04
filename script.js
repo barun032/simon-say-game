@@ -7,7 +7,6 @@ let scores = [];
 let isGameStarted = false;
 let level = 0;
 
-let boxContainer = document.querySelector('.mark-container');
 let h2 = document.querySelector('h2');
 
 document.addEventListener('keypress', function () {
@@ -22,7 +21,6 @@ document.addEventListener('keypress', function () {
 
 function gameFlash(btn) {
     createCheckBox();
-    removeChekMarks();
     btn.classList.add('flash');
     setTimeout(function () {
         btn.classList.remove('flash');
@@ -52,7 +50,6 @@ function levelUp() {
 
 function checkAns(idx) {
     if (gameSequence[idx] === usrerSequence[idx]) {
-        markCheckBox(idx);
         if (usrerSequence.length === gameSequence.length) {
             setTimeout(levelUp, 1000);
         }
@@ -104,22 +101,4 @@ function createCheckBox() {
     box.classList.add('fa-circle-check');
 
     boxContainer.appendChild(box);
-}
-
-function markCheckBox(idx) {
-    let prnt = document.querySelector('.mark-container');
-    let chilrens = prnt.children;
-    console.dir(chilrens);
-
-    chilrens[idx].classList.add('mark-check');
-
-    console.log(idx);
-}
-
-function removeChekMarks() {
-    let prnt = document.querySelector('.mark-container');
-    let chilrens = prnt.children;
-    for (let child of chilrens) {
-        child.classList.remove('mark-check');
-    }
 }
