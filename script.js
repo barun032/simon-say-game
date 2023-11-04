@@ -8,6 +8,8 @@ let isGameStarted = false;
 let level = 0;
 
 let h2 = document.querySelector('h2');
+const start = document.querySelector('#btn-start');
+
 
 document.addEventListener('keypress', function () {
     if (isGameStarted == false) {
@@ -20,7 +22,6 @@ document.addEventListener('keypress', function () {
 
 
 function gameFlash(btn) {
-    createCheckBox();
     btn.classList.add('flash');
     setTimeout(function () {
         btn.classList.remove('flash');
@@ -55,6 +56,7 @@ function checkAns(idx) {
         }
     } else {
         h2.innerHTML = `Game Over! Your score was <b>${level}</b><br/> Press any key to start`;
+        start.classList.remove('hideElm'); // start button will show
         scores.push(level);
         let highScore = getHighScore(scores);
         document.querySelector('#highScore').innerText = `High Score : ${highScore}`;
@@ -95,10 +97,17 @@ function getHighScore(scores) {
     return high;
 }
 
-function createCheckBox() {
-    let box = document.createElement('i');
-    box.classList.add('fa-regular');
-    box.classList.add('fa-circle-check');
+// -------for mobile function only---------------
+start.addEventListener('click', () => {
+    start.classList.add('hideElm');
+    setTimeout(() => {
+        if (isGameStarted == false) {
+            console.log("Game started!");
+            isGameStarted = true;
 
-    boxContainer.appendChild(box);
-}
+            levelUp();
+        }
+           
+    }, 1000);
+})
+
